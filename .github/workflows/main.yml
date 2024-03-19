@@ -1,7 +1,8 @@
-            - name: Get the latest Spring version
-  # You may pin to the exact commit or the version.
-  # uses: shihyuho/go-spring-version@9f72980d26ef9ec6b1b4858724135a4dc65e409a
-  uses: shihyuho/go-spring-version@v1
+- name: Get the latest Spring version
+# You may pin to the exact commit or the version.
+# uses: shihyuho/go-spring-version@9f72980d26ef9ec6b1b4858724135a4dc65e409a
+uses: shihyuho/go-spring-version@v1
+
   with:
     # URL of Spring Boot metadata
     boot-url: # optional, default is https://api.spring.io/projects/spring-boot/releases
@@ -14,5 +15,4 @@
     # List of dependency identifiers to include in the generated project, can separate with commas
     dependencies: # optional
     # true/false, provides additional detailed outputs, often used for debugging purposes
-    verbose: # optional, default is false
-          
+    verbose: # optional, default is false    

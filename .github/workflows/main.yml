@@ -1,73 +1,15 @@
-name: 'Get the latest Spring version'
-description: 'Get the latest Spring Boot version and its associated BOM versions, such as Spring Cloud.'
-# ref: https://haya14busa.github.io/github-action-brandings/
-branding:
-  icon: 'box'
-  color: 'green'
-inputs:
-  boot-url:
-    description: 'URL of Spring Boot metadata'
-    required: false
-    default: "https://api.spring.io/projects/spring-boot/releases"
-  starter-url:
-    description: 'URL of Starter metadata'
-    required: false
-    default: "https://start.spring.io"
-  insecure:
-    description: 'true/false, allow insecure metadata server connections when using SSL'
-    required: false
-    default: "false"
-  boot-version:
-    description: 'Spring Boot version, uses the current version if left blank. Supports semver comparison, e.g. ~3.x'
-    required: false
-  dependencies:
-    description: 'List of dependency identifiers to include in the generated project, can separate with commas'
-    required: false
-  verbose:
-    description: 'true/false, provides additional detailed outputs, often used for debugging purposes'
-    default: "false"
-# The list of outputs can be found in the 'initializr.env.boms' section of the
-# application.yml file located at: https://github.com/spring-io/start.spring.io/blob/main/start-site/src/main/resources/application.yml
-outputs:
-  spring-boot:
-    description: "spring-boot version"
-  spring-cloud:
-    description: "spring-cloud version"
-  spring-cloud-azure:
-    description: "spring-cloud-azure version"
-  spring-cloud-gcp:
-    description: "spring-cloud-gcp version"
-  spring-cloud-services:
-    description: "spring-cloud-services version"
-  spring-modulith:
-    description: "spring-modulith version"
-  spring-shell:
-    description: "spring-shell version"
-  codecentric-spring-boot-admin:
-    description: "codecentric-spring-boot-admin version"
-  hilla:
-    description: "hilla version"
-  sentry:
-    description: "sentry version"
-  solace-spring-boot:
-    description: "solace-spring-boot version"
-  solace-spring-cloud:
-    description: "solace-spring-cloud version"
-  testcontainers:
-    description: "testcontainers version"
-  vaadin:
-    description: "vaadin version"
-  wavefront:
-    description: "wavefront version"
-  metadata:
-    description: "only available when verbose mode is enabled, contains detailed information during the processing, in JSON format, you should not assume the structure to remain unchanged"
-runs:
-  using: 'docker'
-  image: 'docker://ghcr.io/shihyuho/go-spring-version:1'
-  args:
-    - --boot-url=${{ inputs.boot-url }}
-    - --starter-url=${{ inputs.starter-url }}
-    - --boot-version=${{ inputs.boot-version }}
-    - --dependency=${{ inputs.dependencies }}
-    - --verbose=${{ inputs.verbose }}
-    - --output=github
+- name: Get the latest Spring version
+    uses: shihyuho/go-spring-version@v1
+      with:
+        # URL of Spring Boot metadata
+        boot-url: # optional, default is https://api.spring.io/projects/spring-boot/releases
+        # URL of Starter metadata
+        starter-url: # optional, default is https://start.spring.io
+        # true/false, allow insecure metadata server connections when using SSL
+        insecure: # optional, default is false
+        # Spring Boot version, uses the current version if left blank. Supports semver comparison, e.g. ~3.x
+        boot-version: # optional
+        # List of dependency identifiers to include in the generated project, can separate with commas
+        dependencies: # optional
+        # true/false, provides additional detailed outputs, often used for debugging purposes
+        verbose: # optional, default is false

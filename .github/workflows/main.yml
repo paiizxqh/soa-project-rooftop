@@ -1,15 +1,65 @@
-- name: Get the latest Spring version
-    uses: shihyuho/go-spring-version@v1
-      with:
-        # URL of Spring Boot metadata
-        boot-url: # optional, default is https://api.spring.io/projects/spring-boot/releases
-        # URL of Starter metadata
-        starter-url: # optional, default is https://start.spring.io
-        # true/false, allow insecure metadata server connections when using SSL
-        insecure: # optional, default is false
-        # Spring Boot version, uses the current version if left blank. Supports semver comparison, e.g. ~3.x
-        boot-version: # optional
-        # List of dependency identifiers to include in the generated project, can separate with commas
-        dependencies: # optional
-        # true/false, provides additional detailed outputs, often used for debugging purposes
-        verbose: # optional, default is false
+---
+#################################
+#################################
+## Super Linter GitHub Actions ##
+#################################
+#################################
+name: Lint Code Base
+
+#
+# Documentation:
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
+#
+
+#############################
+# Start the job on all push #
+#############################
+on:
+  push:
+    branches-ignore: [master, main]
+    # Remove the line above to run when pushing to master
+  pull_request:
+    branches: [master, main]
+
+###############
+# Set the Job #
+###############
+jobs:
+  build:
+    # Name the Job
+    name: Lint Code Base
+    # Set the agent to run on
+    runs-on: ubuntu-latest
+
+    ############################################
+    # Grant status permission for MULTI_STATUS #
+    ############################################
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+
+    ##################
+    # Load all steps #
+    ##################
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get a proper
+          # list of changed files within `super-linter`
+          fetch-depth: 0
+
+      ################################
+      # Run Linter against code base #
+      ################################
+      - name: Lint Code Base
+        uses: super-linter/super-linter@v5
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          # Change to 'master' if your main branch differs
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

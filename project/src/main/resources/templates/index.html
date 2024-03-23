@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Hello Spring Thymeleaf</title>
+</head>
+<body>
+	<p>
+      <span th:text="${hello}"></span> 
+      <span th:text="${person.firstName}"></span> 
+      <span th:text="${person.lastName}"></span>
+    </p>
+	<a href="" th:href="@{/register}">Create an account</a>
+	<a href="" th:href="@{/login}">Login Now</a>
+</body>
+</html>
